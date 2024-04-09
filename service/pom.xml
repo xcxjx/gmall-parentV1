@@ -13,6 +13,9 @@
     <artifactId>service</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <modules>
+        <module>service-product</module>
+    </modules>
 
     <dependencies>
         <!--依赖服务的工具类-->
