@@ -8,10 +8,13 @@ import lombok.Data;
  * 全局统一返回结果类
  *
  */
+//java bean set,get,hashcode,equal,tosting
 @Data
+//声明此类是个swagger模型
 @ApiModel(value = "全局统一返回结果")
 public class Result<T> {
 
+    //声明这个属性是swagger属性
     @ApiModelProperty(value = "返回码")
     private Integer code;
 
