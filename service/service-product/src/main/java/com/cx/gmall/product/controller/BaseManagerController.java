@@ -1,10 +1,7 @@
 package com.cx.gmall.product.controller;
 
 import com.cx.gmall.common.result.Result;
-import com.cx.gmall.model.product.BaseAttrInfo;
-import com.cx.gmall.model.product.BaseCategory1;
-import com.cx.gmall.model.product.BaseCategory2;
-import com.cx.gmall.model.product.BaseCategory3;
+import com.cx.gmall.model.product.*;
 import com.cx.gmall.product.service.BaseManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -89,7 +86,7 @@ public class BaseManagerController {
      */
     @GetMapping("/getAttrValueList/{attrId}")
     public Result getAttrValueList(@PathVariable Long attrId){
-        BaseAttrInfo baseAttrInfo=baseManagerService.getAttrValueList(attrId);
-        return Result.ok(baseAttrInfo);
+        List<BaseAttrValue> baseAttrValueList=baseManagerService.getAttrValueList(attrId);
+        return Result.ok(baseAttrValueList);
     }
 }

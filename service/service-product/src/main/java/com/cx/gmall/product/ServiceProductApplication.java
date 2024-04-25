@@ -13,7 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 //指定扫描路径，将路径下带有注解的类自动装配到bean容器中
 @ComponentScan({"com.cx.gmall"})
-//从注册中心（zookeeper等）获取注册信息及提供注册服务
+//注册到注册中心，方便其他服务发现并调用他
 @EnableDiscoveryClient
 public class ServiceProductApplication {
     public static void main(String[] args) {

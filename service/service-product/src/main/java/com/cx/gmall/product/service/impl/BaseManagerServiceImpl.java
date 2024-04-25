@@ -91,14 +91,20 @@ public class BaseManagerServiceImpl implements BaseManagerService {
             QueryWrapper<BaseAttrValue> baseAttrValueQueryWrapper = new QueryWrapper<>();
             baseAttrValueQueryWrapper.eq("attr_id",baseAttrInfo.getId());
             baseAttrValueMapper.delete(baseAttrValueQueryWrapper);
+        }else {
+            //新增属性
+            baseAttrInfoMapper.insert(baseAttrInfo);
         }
-        //新增属性
-        baseAttrInfoMapper.insert(baseAttrInfo);
+
         //新增属性值
-        for (BaseAttrValue baseAttrValue : baseAttrInfo.getAttrValueList()) {
-            baseAttrValue.setAttrId(baseAttrInfo.getId());
-            baseAttrValueMapper.insert(baseAttrValue);
+        List<BaseAttrValue> attrValueList = baseAttrInfo.getAttrValueList();
+        if (attrValueList!=null){
+            for (BaseAttrValue baseAttrValue : attrValueList) {
+                baseAttrValue.setAttrId(baseAttrInfo.getId());
+                baseAttrValueMapper.insert(baseAttrValue);
+            }
         }
+
     }
 
     /**
@@ -107,19 +113,15 @@ public class BaseManagerServiceImpl implements BaseManagerService {
      * @return
      */
     @Override
-    public BaseAttrInfo getAttrValueList(Long attrId) {
+    public List<BaseAttrValue> getAttrValueList(Long attrId) {
 
-        //根据属性id查找属性
 
-        BaseAttrInfo baseAttrInfo = baseAttrInfoMapper.selectById(attrId);
-        if (baseAttrInfo!=null){
-            //根据属性id查找属性值
-            QueryWrapper<BaseAttrValue> baseAttrValueQueryWrapper = new QueryWrapper<>();
-            baseAttrValueQueryWrapper.eq("attr_id",attrId);
-            List<BaseAttrValue> baseAttrValueList = baseAttrValueMapper.selectList(baseAttrValueQueryWrapper);
-            //将属性值封装到属性id中
-            baseAttrInfo.setAttrValueList(baseAttrValueList);
-        }
-        return baseAttrInfo;
+        //根据属性id查找属性值
+        QueryWrapper<BaseAttrValue> baseAttrValueQueryWrapper = new QueryWrapper<>();
+        baseAttrValueQueryWrapper.eq("attr_id",attrId);
+        List<BaseAttrValue> baseAttrValueList = baseAttrValueMapper.selectList(baseAttrValueQueryWrapper);
+
+
+        return baseAttrValueList;
     }
 }

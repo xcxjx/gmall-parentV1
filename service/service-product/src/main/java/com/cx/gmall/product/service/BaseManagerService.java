@@ -1,9 +1,6 @@
 package com.cx.gmall.product.service;
 
-import com.cx.gmall.model.product.BaseAttrInfo;
-import com.cx.gmall.model.product.BaseCategory1;
-import com.cx.gmall.model.product.BaseCategory2;
-import com.cx.gmall.model.product.BaseCategory3;
+import com.cx.gmall.model.product.*;
 
 import java.util.List;
 
@@ -22,5 +19,6 @@ public interface BaseManagerService {
 
     void saveAttrInfo(BaseAttrInfo baseAttrInfo);
 
-    BaseAttrInfo getAttrValueList(Long attrId);
+
+    List<BaseAttrValue> getAttrValueList(Long attrId);
 }
