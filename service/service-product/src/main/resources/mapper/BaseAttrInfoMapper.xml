@@ -35,4 +35,27 @@
         </where>
 
     </select>
+
+    <resultMap id="getAttrListMap" type="com.cx.gmall.model.product.BaseAttrInfo" autoMapping="true">
+        <id column="id" property="id"/>
+        <collection property="attrValueList" ofType="com.cx.gmall.model.product.BaseAttrValue" autoMapping="true">
+            <id column="attr_value_id" property="id"/>
+        </collection>
+    </resultMap>
+    <select id="getAttrList" resultMap="getAttrListMap">
+        SELECT
+            bai.id,
+            bai.attr_name,
+            bai.category_id,
+            bai.category_level,
+            bav.id attr_value_id,
+            bav.attr_id,
+            bav.value_name
+        FROM base_attr_info bai
+                 INNER JOIN base_attr_value bav
+                            on bai.id=bav.attr_id
+                 INNER JOIN sku_attr_value sav
+                            on bav.id=sav.value_id
+        WHERE sku_id=#{skuId}
+    </select>
 </mapper>

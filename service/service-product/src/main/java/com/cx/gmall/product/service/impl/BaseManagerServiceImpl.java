@@ -26,6 +26,8 @@ public class BaseManagerServiceImpl implements BaseManagerService {
     private BaseAttrInfoMapper baseAttrInfoMapper;
     @Autowired
     private BaseAttrValueMapper baseAttrValueMapper;
+    @Autowired
+    private BaseSaleAttrMapper baseSaleAttrMapper;
     /**
      * 查询一级分类
      * @return
@@ -123,5 +125,14 @@ public class BaseManagerServiceImpl implements BaseManagerService {
 
 
         return baseAttrValueList;
+    }
+
+    /**
+     * 获取销售属性
+     * @return
+     */
+    @Override
+    public List<BaseSaleAttr> baseSaleAttrList() {
+        return baseSaleAttrMapper.selectList(null);
     }
 }

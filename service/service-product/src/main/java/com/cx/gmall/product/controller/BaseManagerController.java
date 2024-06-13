@@ -42,7 +42,7 @@ public class BaseManagerController {
     }
 
     /**
-     * 根据二级Id查询三分分类
+     * 根据二级Id查询三级分类
      * @param category2Id
      * @return
      */

@@ -21,4 +21,8 @@ public interface BaseManagerService {
 
 
     List<BaseAttrValue> getAttrValueList(Long attrId);
+
+    List<BaseSaleAttr> baseSaleAttrList();
+
+
 }

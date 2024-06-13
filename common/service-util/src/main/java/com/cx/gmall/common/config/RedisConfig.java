@@ -16,6 +16,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  */
 @Configuration
 @EnableCaching
+@SuppressWarnings("all")
 public class RedisConfig {
     // 声明模板
     /*

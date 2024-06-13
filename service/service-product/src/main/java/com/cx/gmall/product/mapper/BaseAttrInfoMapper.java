@@ -15,7 +15,21 @@ import java.util.List;
 @Mapper
 public interface BaseAttrInfoMapper extends BaseMapper<BaseAttrInfo> {
 
+    /**
+     * 根据一级，二级三级分类id查询基本属性信息
+     * @param category1Id
+     * @param category2Id
+     * @param category3Id
+     * @return
+     */
     List<BaseAttrInfo> selectBaseAttrInfoList(@Param("category1Id") Long category1Id,
                                                 @Param("category2Id") @PathVariable Long category2Id,
                                                 @Param("category3Id") @PathVariable Long category3Id);
+
+    /**
+     * 根据skuId查询基本属性信息
+     * @param skuId
+     * @return
+     */
+    List<BaseAttrInfo> getAttrList(Long skuId);
 }

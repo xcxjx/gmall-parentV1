@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cx.gmall.product.mapper.SpuSaleAttrMapper">
+    <resultMap id="spuSaleAttrListMap" type="com.cx.gmall.model.product.SpuSaleAttr" autoMapping="true">
+        <id column="id" property="id"/>
+        <collection property="spuSaleAttrValueList" ofType="com.cx.gmall.model.product.SpuSaleAttrValue" autoMapping="true">
+            <id column="ssav_id" property="id"/>
+        </collection>
+    </resultMap>
+    <select id="spuSaleAttrList" resultMap="spuSaleAttrListMap">
+        select
+            ssa.id,
+            ssa.spu_id,
+            ssa.base_sale_attr_id,
+            ssa.sale_attr_name,
+            ssav.id as ssav_id,
+            ssav.sale_attr_value_name
+        from
+            spu_sale_attr ssa
+        inner join spu_sale_attr_value ssav
+        on ssa.base_sale_attr_id=ssav.base_sale_attr_id
+        <where>
+            ssa.spu_id=#{spuId} and ssa.spu_id=ssav.spu_id and
+            ssa.is_deleted=0 and ssav.is_deleted=0
+        </where>
+    </select>
+
+    <resultMap id="getSpuSaleAttrListCheckBySkuMap" type="com.cx.gmall.model.product.SpuSaleAttr" autoMapping="true">
+        <id column="id" property="id"/>
+        <collection property="spuSaleAttrValueList" ofType="com.cx.gmall.model.product.SpuSaleAttrValue" autoMapping="true">
+            <id column="sale_attr_value_id" property="id"/>
+        </collection>
+    </resultMap>
+    <select id="getSpuSaleAttrListCheckBySku" resultMap="getSpuSaleAttrListCheckBySkuMap">
+        SELECT
+            ssa.id,
+            ssa.spu_id,
+            ssa.base_sale_attr_id,
+            ssa.sale_attr_name,
+            ssav.id as sale_attr_value_id,
+            ssav.sale_attr_value_name,
+            ksav.sku_id,
+            IF(ksav.sku_id is NULL,0,1) is_checked
+        FROM
+            spu_sale_attr ssa
+                INNER JOIN spu_sale_attr_value ssav
+                           ON ssa.spu_id=ssav.spu_id and ssa.base_sale_attr_id=ssav.base_sale_attr_id
+                LEFT JOIN sku_sale_attr_value ksav
+                          ON ssa.spu_id=ksav.spu_id and ssav.id=ksav.sale_attr_value_id and ksav.sku_id=#{skuId}
+        WHERE ssa.spu_id=#{spuId}
+        ORDER BY ssa.base_sale_attr_id,ssav.id
+    </select>
+</mapper>
